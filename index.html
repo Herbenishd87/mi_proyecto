@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Citas</title>
+    <link rel="stylesheet" href="arreglos.css">
+</head>
+<body>
+    <div id="seleccion" class="ContenedorConsultaCitas section active">
+        <div class="Izquierda">
+            <img src="https://th.bing.com/th/id/R.08c581ed713d4f85f9060b21002acf14?rik=5KDPbiO8kiOv5A&riu=http%3a%2f%2fnovaciencia.es%2fwp-content%2fuploads%2f2017%2f07%2fpsicologia-general-sanitaria.jpg&ehk=QM%2fmOO2yywGf%2bCU9Aim20K9rlFItll8OBUXU%2fIJF%2bss%3d&risl=&pid=ImgRaw&r=0" alt="Imagen decorativa selección">
+        </div>
+        <div class="Derecha">
+            <div class="Superior">
+                <img src="https://static.vecteezy.com/system/resources/previews/019/017/814/non_2x/symbol-of-legal-scales-and-health-of-legal-psychology-black-and-white-silhouettelogo-design-free-vector.jpg" alt="Logo psicología legal">
+                <h1 id="tituloBienvenida">Bienvenido. Seleccione el área o especialidad en la que desea ver disponibilidad.</h1>
+            </div>
+            <div class="Inferior" id="opcionesEspecialidad">
+                <button type="button" data-area="Psicología">Psicología</button>
+                <button type="button" data-area="Psiquiatría">Psiquiatría</button>
+            </div>
+            <div id="calendario" class="calendario">
+                <label for="fecha">Seleccione una fecha:</label>
+                <input type="date" id="fecha">
+
+                <label for="hora">Seleccione una hora:</label>
+                <select id="hora">
+                    <option value="">-- Seleccione una hora --</option>
+                    <option value="09:00">09:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="14:00">02:00 PM</option>
+                    <option value="15:00">03:00 PM</option>
+                    <option value="16:00">04:00 PM</option>
+                    <option value="17:00">05:00 PM</option>
+                </select>
+
+                <button id="confirmarCita" style="margin-top: 20px;">Confirmar Cita</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmacion" class="ContenedorConfirmacion section">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.oAg1sM8akf9LZAliDL5XwwHaHD?rs=1&pid=ImgDetMain" alt="Imagen confirmación">
+        <h1 id="mensajeConfirmacion">FELICIDADES, SU CITA FUE CONFIRMADA</h1>
+        <button style="margin-top: 32px" onclick="cambiarVista('seleccion')">Volver al inicio</button>
+    </div>
+
+    <script>
+        let areaSeleccionada = '';
+        // Simulación de una "base de datos" de citas reservadas
+        // En un entorno real, esto vendría de un servidor.
+        const citasReservadas = []; // Formato: { area: 'Psicología', fecha: '2025-07-08', hora: '10:00' }
+
+        function cambiarVista(id) {
+            document.querySelectorAll('.section').forEach((sec) =>
+                sec.classList.remove('active')
+            );
+            document.getElementById(id).classList.add('active');
+            // Restaurar estado inicial si vuelve al inicio
+            if (id === 'seleccion') {
+                document.getElementById("tituloBienvenida").textContent =
+                    "Bienvenido. Seleccione el área o especialidad en la que desea ver disponibilidad.";
+                document.getElementById('calendario').classList.remove('active');
+                document.getElementById('opcionesEspecialidad').classList.remove('hidden');
+                document.getElementById('fecha').value = '';
+                document.getElementById('hora').value = ''; // Limpiar la hora seleccionada
+            }
+        }
+
+        document.querySelectorAll('[data-area]').forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                areaSeleccionada = e.currentTarget.dataset.area;
+
+                // Cambiar texto de bienvenida
+                document.getElementById("tituloBienvenida").textContent =
+                    `Has seleccionado una cita de ${areaSeleccionada}. Por favor, elige una fecha y hora.`;
+
+                // Ocultar botones de especialidades
+                document.getElementById('opcionesEspecialidad').classList.add('hidden');
+
+                // Mostrar calendario y selector de hora
+                document.getElementById('calendario').classList.add('active');
+
+                // Establecer la fecha mínima para el input de fecha (por ejemplo, la fecha actual o el siguiente día hábil)
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                document.getElementById('fecha').min = `${year}-${month}-${day}`;
+            });
+        });
+
+        document.getElementById('confirmarCita').addEventListener('click', () => {
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+
+            if (!fecha || !hora) {
+                alert('Por favor, seleccione una fecha Y una hora para la cita.');
+                return;
+            }
+
+            // Verificar si la cita ya está reservada
+            const citaExistente = citasReservadas.find(cita =>
+                cita.area === areaSeleccionada &&
+                cita.fecha === fecha &&
+                cita.hora === hora
+            );
+
+            if (citaExistente) {
+                alert(`Lo sentimos, la cita para ${areaSeleccionada} el ${fecha} a las ${hora} ya no está disponible. Por favor, elige otra hora o fecha.`);
+                return;
+            }
+
+            // Si está disponible, la "reservamos" (la añadimos a nuestro arreglo simulado)
+            citasReservadas.push({
+                area: areaSeleccionada,
+                fecha: fecha,
+                hora: hora
+            });
+
+            // Mostrar mensaje de confirmación
+            document.getElementById(
+                'mensajeConfirmacion'
+            ).textContent = `FELICIDADES, SU CITA DE ${areaSeleccionada.toUpperCase()} FUE CONFIRMADA PARA EL ${fecha} A LAS ${hora} hrs.`;
+            cambiarVista('confirmacion');
+
+            console.log("Citas actuales reservadas:", citasReservadas); // Para depuración
+        });
+    </script>
+</body>
+</html>
