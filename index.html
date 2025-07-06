@@ -50,23 +50,22 @@
 
     <script>
         let areaSeleccionada = '';
-        // Simulación de una "base de datos" de citas reservadas
-        // En un entorno real, esto vendría de un servidor.
-        const citasReservadas = []; // Formato: { area: 'Psicología', fecha: '2025-07-08', hora: '10:00' }
+      
+        const citasReservadas = []; 
 
         function cambiarVista(id) {
             document.querySelectorAll('.section').forEach((sec) =>
                 sec.classList.remove('active')
             );
             document.getElementById(id).classList.add('active');
-            // Restaurar estado inicial si vuelve al inicio
+            
             if (id === 'seleccion') {
                 document.getElementById("tituloBienvenida").textContent =
                     "Bienvenido. Seleccione el área o especialidad en la que desea ver disponibilidad.";
                 document.getElementById('calendario').classList.remove('active');
                 document.getElementById('opcionesEspecialidad').classList.remove('hidden');
                 document.getElementById('fecha').value = '';
-                document.getElementById('hora').value = ''; // Limpiar la hora seleccionada
+                document.getElementById('hora').value = ''; 
             }
         }
 
@@ -74,17 +73,16 @@
             btn.addEventListener('click', (e) => {
                 areaSeleccionada = e.currentTarget.dataset.area;
 
-                // Cambiar texto de bienvenida
                 document.getElementById("tituloBienvenida").textContent =
                     `Has seleccionado una cita de ${areaSeleccionada}. Por favor, elige una fecha y hora.`;
 
-                // Ocultar botones de especialidades
+             
                 document.getElementById('opcionesEspecialidad').classList.add('hidden');
 
-                // Mostrar calendario y selector de hora
+               
                 document.getElementById('calendario').classList.add('active');
 
-                // Establecer la fecha mínima para el input de fecha (por ejemplo, la fecha actual o el siguiente día hábil)
+               
                 const today = new Date();
                 const year = today.getFullYear();
                 const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -102,7 +100,7 @@
                 return;
             }
 
-            // Verificar si la cita ya está reservada
+            
             const citaExistente = citasReservadas.find(cita =>
                 cita.area === areaSeleccionada &&
                 cita.fecha === fecha &&
@@ -114,20 +112,20 @@
                 return;
             }
 
-            // Si está disponible, la "reservamos" (la añadimos a nuestro arreglo simulado)
+            // Si está disponible, la "reservamos" (la añadimos al arreglo simulado,)// solicite ayuda de la IA en esta parte.
             citasReservadas.push({
                 area: areaSeleccionada,
                 fecha: fecha,
                 hora: hora
             });
 
-            // Mostrar mensaje de confirmación
+            
             document.getElementById(
                 'mensajeConfirmacion'
             ).textContent = `FELICIDADES, SU CITA DE ${areaSeleccionada.toUpperCase()} FUE CONFIRMADA PARA EL ${fecha} A LAS ${hora} hrs.`;
             cambiarVista('confirmacion');
 
-            console.log("Citas actuales reservadas:", citasReservadas); // Para depuración
+            console.log("Citas actuales reservadas:", citasReservadas); 
         });
     </script>
 </body>
