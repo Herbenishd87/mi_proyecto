@@ -9,23 +9,23 @@ body {
     color: #333;
 }
 
-/* Contenedor principal para ambas vistas */
+
 .section {
-    display: none; /* Ocultar por defecto */
+    display: none; 
     width: 90%;
     max-width: 1000px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    flex-direction: row; /* Asegura que Izquierda y Derecha estén en fila */
+    flex-direction: row; 
 }
 
 .section.active {
-    display: flex; /* Mostrar cuando tenga la clase 'active' */
+    display: flex; 
 }
 
-/* Estilos para la sección de confirmación */
+
 .ContenedorConfirmacion {
     flex-direction: column;
     align-items: center;
@@ -41,16 +41,15 @@ body {
 }
 
 .ContenedorConfirmacion h1 {
-    color: #28a745; /* Un color verde para confirmación */
-    font-size: 2em;
+    color: #28a745; 
     margin-bottom: 30px;
 }
 
-/* Estilos para la sección de consulta de citas */
+
 .ContenedorConsultaCitas {
     display: flex;
-    flex-direction: row; /* Por defecto, en línea */
-    min-height: 500px; /* Asegura una altura mínima para el contenedor */
+    flex-direction: row; 
+    min-height: 500px; 
 }
 
 .ContenedorConsultaCitas .Izquierda {
@@ -58,7 +57,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e9ecef; /* Un fondo claro para la imagen */
+    background-color: #e9ecef; 
     padding: 20px;
 }
 
@@ -70,7 +69,7 @@ body {
 }
 
 .ContenedorConsultaCitas .Derecha {
-    flex: 1.5; /* Más espacio para la derecha */
+    flex: 1.5; 
     display: flex;
     flex-direction: column;
     padding: 30px;
@@ -89,14 +88,14 @@ body {
 
 .ContenedorConsultaCitas .Derecha .Superior h1 {
     font-size: 1.8em;
-    color: #007bff; /* Un color azul para el título */
+    color: #007bff;
     margin: 0;
 }
 
 .ContenedorConsultaCitas .Derecha .Inferior {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espacio entre los botones */
+    gap: 15px; 
     align-items: center;
     padding-top: 20px;
 }
@@ -108,7 +107,7 @@ body {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 80%; /* Ancho de los botones */
+    width: 80%; 
     max-width: 300px;
     background-color: #007bff;
     color: white;
@@ -119,17 +118,17 @@ body {
     transform: translateY(-2px);
 }
 
-/* Estilos para el calendario */
+
 .calendario {
     margin-top: 20px;
-    display: none; /* Ocultar por defecto */
+    display: none; 
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Espacio entre elementos del calendario */
+    gap: 15px; 
 }
 
 .calendario.active {
-    display: flex; /* Mostrar cuando tenga la clase 'active' */
+    display: flex; 
 }
 
 .calendario label {
@@ -145,17 +144,17 @@ input[type="date"] {
     border-radius: 5px;
     width: 80%;
     max-width: 300px;
-    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+    box-sizing: border-box; 
 }
 
-/* Ocultar por completo la sección de botones si se selecciona área */
+
 .Inferior.hidden {
     display: none;
 }
 
-/* Estilos para el botón de confirmar cita en el calendario */
+
 #confirmarCita {
-    background-color: #28a745; /* Color verde para confirmar */
+    background-color: #28a745; 
     color: white;
     padding: 12px 25px;
     border: none;
@@ -171,9 +170,9 @@ input[type="date"] {
     background-color: #218838;
 }
 
-/* Botón de "Volver al inicio" en la confirmación */
+
 .ContenedorConfirmacion button {
-    background-color: #6c757d; /* Color gris */
+    background-color: #6c757d; 
     color: white;
     padding: 10px 20px;
     border: none;
@@ -188,16 +187,16 @@ input[type="date"] {
 }
 
 
-/* Media Queries para responsividad */
+
 @media (max-width: 768px) {
     .ContenedorConsultaCitas {
-        flex-direction: column; /* Apilar en pantallas pequeñas */
+        flex-direction: column;
     }
 
     .ContenedorConsultaCitas .Izquierda,
     .ContenedorConsultaCitas .Derecha {
-        flex: none; /* Eliminar flex-grow */
-        width: 100%; /* Ocupar todo el ancho */
+        flex: none; 
+        width: 100%; 
     }
 
     .ContenedorConsultaCitas .Izquierda {
@@ -220,7 +219,7 @@ input[type="date"] {
     .Inferior button,
     input[type="date"],
     #confirmarCita {
-        width: 90%; /* Ajustar ancho en pantallas pequeñas */
+        width: 90%; 
         max-width: none;
     }
 }
